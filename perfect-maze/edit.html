@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="edit.css">
+    </head>
+    <body>
+        <main>
+            <div id="workspace">
+                <div id="grid">
+                </div>
+            </div>
+            <div id="toolbar">
+                <div id="drop-zone">
+                    <p>アップロード(ドラッグアンドドロップ可)</p>
+                    <input type="file" name="file" id="file-input">
+                </div>
+                <div id="download-zone">
+                    <p>編集が終わったらここをクリック</p>
+                    <button id="download" type="button">ダウンロード</button>
+                </div>
+                <div id="tile_palette">
+                </div>
+                <div id="description">
+                    <h2>使い方:</h2>
+                    <p>
+                        1. 事前に迷路データを入れたcsvファイルをアップロードする
+                        <br>
+                        2. 画面右のパレットからギミックを選択し、左のグリッドをタップすると置き換わる
+                        <br>
+                        3. 編集が終わったらダウンロードボタンを押す
+                    </p>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script type="text/javascript" src="edit.js"></script>
+    <script type="text/javascript" src="fileManage.js"></script>
+</html>

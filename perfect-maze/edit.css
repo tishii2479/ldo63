@@ -1,0 +1,89 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+}
+
+#workspace {
+  width: 70%;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toolbar {
+  width: 30%;
+  background-color: white;
+}
+
+#drop-zone {
+  border: 1px solid;
+  padding: 10px;
+}
+
+#download-zone {
+  border: 1px solid;
+  padding: 10px;
+}
+
+#grid {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+#tile_palette {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.grid-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.tile {
+  width: 21px;
+  height: 21px;
+  padding: 0.5px;
+}
+
+.tile:hover {
+  background-color: aquamarine;
+}
+
+.tile-img {
+  width: 20px;
+  height: 20px;
+}
+
+.tile-tool {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-tool:hover {
+  background-color: lightblue;
+}
+
+.tile-tool-img {
+  width: 60px;
+  height: 60px;
+}
+
+.tile-tool-text {
+  font-size: 14px;
+}
