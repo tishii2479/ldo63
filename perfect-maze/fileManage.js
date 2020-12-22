@@ -39,6 +39,12 @@ function uploadFile(file) {
             return;
         }
     }
+    let type = file.name.split('.');
+    
+    if (type[type.length - 1].toLowerCase() != 'csv') {
+        alert('拡張子がcsvであるファイルのみアップロードできます。');
+        return;
+    }
 
     fileName = file.name;
 
