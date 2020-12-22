@@ -43,6 +43,7 @@ function uploadFile(file) {
     fileName = file.name;
 
     fr.onload = function () {
+        console.log("upload data");
         console.log(fr.result);
         updateData(fr.result);
     };
@@ -60,6 +61,9 @@ function downloadFile() {
         data += csvData[i].toString();
         data += "\n";
     }
+
+    console.log("download data");
+    console.log(data);
 
     const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
     const blob = new Blob([bom, data], { type: "text/csv" });

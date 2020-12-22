@@ -55,7 +55,6 @@ function setUpToolbar() {
 }
 
 function updateData(data) {
-    console.log("updated data");
     csvData = convertCSVtoArray(data);
     reloadView();
 }
@@ -82,7 +81,6 @@ function reloadView() {
     let h = csvData.length;
     let w = csvData[0].length;
     let result = "";
-    console.log(tileSize);
     for (let y = 0; y < h; y++) {
         result += `<div class="grid-row">`
         for (let x = 0; x < w; x++) {
@@ -97,7 +95,7 @@ function reloadView() {
 
     for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
-            if (grids[y * w + x] == undefined) { console.log(y * w + x); continue;}
+            if (grids[y * w + x] == undefined) { continue; }
             grids[y * w + x].addEventListener("click", function () {
                 if (selectedIndex > 1 && (x % 2 == 0 || y % 2 == 0)) {
                     alert("奇数ますにはギミックを配置できません");
