@@ -3,6 +3,7 @@ let selectedTile;
 let selectedIndex;
 const grid = document.getElementById("grid");
 const tilePalette = document.getElementById("tile_palette");
+const selected = document.getElementById("selected");
 const tiles = [
     "0",
     "1",
@@ -32,6 +33,10 @@ for (let i = 0; i < toolbarTiles.length; i++) {
     toolbarTiles[i].addEventListener("click", function () {
         selectedTile = tiles[i];
         selectedIndex = i;
+        selected.innerHTML = `<p>
+             <b>選択済み: ${tiles[i]}</b>
+             </p>
+        `;
     });
 }
 
