@@ -1,5 +1,6 @@
 let csvData;
 let selectedTile;
+let selectedIndex;
 const grid = document.getElementById("grid");
 const tilePalette = document.getElementById("tile_palette");
 const tiles = [
@@ -15,15 +16,22 @@ const tiles = [
     "10_1", "10_2",
     "11"
 ];
+let tileSize = 25;
+const sizes = [20, 25, 30, 35];
+const sizeSmall = document.getElementById("size-small");
+const sizeMiddle = document.getElementById("size-middle");
+const sizeBig = document.getElementById("size-big");
+const sizeLarge = document.getElementById("size-large");
 
 setUpToolbar();
+setUpSizeButtons();
 const toolbarTiles = document.getElementsByClassName("tile-tool");
 let grids;
 
 for (let i = 0; i < toolbarTiles.length; i++) {
     toolbarTiles[i].addEventListener("click", function () {
         selectedTile = tiles[i];
-        console.log(selectedTile);
+        selectedIndex = i;
     });
 }
 
@@ -49,8 +57,8 @@ function updateData(data) {
 
 function convertStrToElement(str) {
     if (str == undefined || str == "") { return ""; }
-    return `<div class="tile">
-        <img src="image/tile/${str}.png" class="tile-img" alt="${str}" />
+    return `<div class="tile" style="width: ${tileSize + 1}px; height: ${tileSize + 1}px;">
+        <img src="image/tile/${str}.png" class="tile-img" style="width: ${tileSize}px; height: ${tileSize}px;" alt="${str}" />
     </div>`;
 }
 
@@ -69,6 +77,7 @@ function reloadView() {
     let h = csvData.length;
     let w = csvData[0].length;
     let result = "";
+    console.log(tileSize);
     for (let y = 0; y < h; y++) {
         result += `<div class="grid-row">`
         for (let x = 0; x < w; x++) {
@@ -85,7 +94,7 @@ function reloadView() {
         for (let x = 0; x < w; x++) {
             if (grids[y * w + x] == undefined) { console.log(y * w + x); continue;}
             grids[y * w + x].addEventListener("click", function () {
-                if (x % 2 == 0 || y % 2 == 0) {
+                if (selectedIndex > 1 && (x % 2 == 0 || y % 2 == 0)) {
                     alert("奇数ますにはギミックを配置できません");
                     return;
                 }
@@ -96,8 +105,30 @@ function reloadView() {
     }
 }
 
-// const onBeforeUnloadHandler = function(e) {
-//     e.returnValue = 'ステージデータのダウンロードを行いましたか？';
-// };
+function setUpSizeButtons() {
+    sizeSmall.addEventListener("click", function () {
+        tileSize = sizes[0];
+        reloadView();
+    });
 
-// window.addEventListener('beforeunload', onBeforeUnloadHandler, false);
+    sizeMiddle.addEventListener("click", function () {
+        tileSize = sizes[1];
+        reloadView();
+    });
+
+    sizeBig.addEventListener("click", function () {
+        tileSize = sizes[2];
+        reloadView();
+    });
+
+    sizeLarge.addEventListener("click", function () {
+        tileSize = sizes[3];
+        reloadView();
+    });
+}
+
+const onBeforeUnloadHandler = function(e) {
+    e.returnValue = 'ステージデータのダウンロードを行いましたか？';
+};
+
+window.addEventListener('beforeunload', onBeforeUnloadHandler, false);

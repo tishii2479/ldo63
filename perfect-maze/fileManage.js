@@ -2,6 +2,7 @@
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 const download = document.getElementById('download');
+let fileName = "";
 
 dropZone.addEventListener('dragover', function(e) {
     e.stopPropagation();
@@ -33,6 +34,14 @@ function uploadFile(file) {
     /* FileReaderで読み込み、プレビュー画像を表示。 */
     const fr = new FileReader();
     fr.readAsText(file);
+    if (fileName != "") {
+        if (confirm("前のステージデータはダウンロードしましたか？") == false) {
+            return;
+        }
+    }
+
+    fileName = file.name;
+
     fr.onload = function () {
         console.log(fr.result);
         updateData(fr.result);
@@ -40,7 +49,7 @@ function uploadFile(file) {
 }
 
 function downloadFile() {
-    const filename = "stage.csv";
+    const filename = fileName;
     let data = "";
     if (csvData == undefined) {
         alert("data not set");
