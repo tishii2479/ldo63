@@ -153,7 +153,6 @@ function getRandomInt(max) {
 }
 
 function convertMapArrayToCSV(mapArray) {
-    console.log(mapArray);
     let result = ""
     for (let y = 0; y < mapArrayHeight; y++) {
         for (let x = 0; x < mapArrayWidth; x++) {
@@ -171,6 +170,8 @@ function convertMapArrayToCSV(mapArray) {
         }
     }
     result = result.trim();
+
+    console.log(result);
 
     updateData(result);
 }
