@@ -101,6 +101,9 @@ function reloadView() {
                     alert("奇数ますにはギミックを配置できません");
                     return;
                 }
+
+                // 選択せずに選んだ時に
+                if (selectedTile == undefined) { return; } 
                 csvData[y][x] = selectedTile;
                 reloadView();
             });

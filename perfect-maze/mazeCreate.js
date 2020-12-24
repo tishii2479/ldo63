@@ -158,13 +158,19 @@ function convertMapArrayToCSV(mapArray) {
     for (let y = 0; y < mapArrayHeight; y++) {
         for (let x = 0; x < mapArrayWidth; x++) {
             if (mapArray[y][x] == PATH) {
-                result += "0,";
+                result += "0";
             } else {
-                result += "1,";
+                result += "1";
+            }
+            if (x < mapArrayWidth - 1) { 
+                result += ",";
             }
         }
-        result += "\n";
+        if (y < mapArrayHeight - 1) {
+            result += "\n";
+        }
     }
+    result = result.trim();
 
     updateData(result);
 }
