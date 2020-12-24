@@ -29,6 +29,8 @@ main {
 }
 
 #download-zone {
+  display: flex;
+  flex-direction: column;
   border: 1px solid;
   padding: 10px;
 }
@@ -51,6 +53,18 @@ main {
 
 #size-zone {
   padding: 30px 0px;
+}
+
+#size-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#create-zone {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  padding: 10px;
 }
 
 .grid-row {

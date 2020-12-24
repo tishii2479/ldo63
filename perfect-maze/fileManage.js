@@ -2,6 +2,7 @@
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 const download = document.getElementById('download');
+const fileNameInput = document.getElementById('fileNameInput');
 let fileName = "";
 
 dropZone.addEventListener('dragover', function(e) {
@@ -56,7 +57,10 @@ function uploadFile(file) {
 }
 
 function downloadFile() {
-    const filename = fileName;
+    let fileName = fileNameInput.value;
+    if (fileName == "") {
+        fileName = "stage.csv"
+    }
     let data = "";
     if (csvData == undefined) {
         alert("data not set");
@@ -75,12 +79,12 @@ function downloadFile() {
     const blob = new Blob([bom, data], { type: "text/csv" });
 
     if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, filename);
+        window.navigator.msSaveBlob(blob, fileName);
     } else {
         const url = (window.URL || window.webkitURL).createObjectURL(blob);
         const download = document.createElement("a");
         download.href = url;
-        download.download = filename;
+        download.download = fileName;
         download.click();
         (window.URL || window.webkitURL).revokeObjectURL(url);
     }

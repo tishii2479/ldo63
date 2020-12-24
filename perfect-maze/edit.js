@@ -130,6 +130,7 @@ function setUpSizeButtons() {
     });
 }
 
+// 再起動
 const onBeforeUnloadHandler = function(e) {
     e.returnValue = 'ステージデータのダウンロードを行いましたか？';
 };
