@@ -69,7 +69,10 @@ function downloadFile() {
 
     for (let i = 0; i < csvData.length; i++) {
         data += csvData[i].toString();
-        data += "\n";
+
+        if (i < csvData.length - 1) {
+            data += "\n";
+        }
     }
 
     console.log("download data");
