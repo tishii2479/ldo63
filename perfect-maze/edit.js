@@ -84,7 +84,12 @@ function reloadView() {
     for (let y = 0; y < h; y++) {
         result += `<div class="grid-row">`
         for (let x = 0; x < w; x++) {
-            result += convertStrToElement(csvData[y][x]);
+            let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
+            if (isGoalArea) {
+                result += convertStrToElement("-1");
+            } else {
+                result += convertStrToElement(csvData[y][x]);
+            }
         }
         result += `</div>`
     }
@@ -99,6 +104,11 @@ function reloadView() {
             grids[y * w + x].addEventListener("click", function () {
                 if (selectedIndex > 1 && (x % 2 == 0 || y % 2 == 0)) {
                     alert("奇数ますにはギミックを配置できません");
+                    return;
+                }
+                let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
+                if (isGoalArea) {
+                    alert("ゴールエリアは編集できません");
                     return;
                 }
 

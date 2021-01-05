@@ -171,6 +171,7 @@ function convertMapArrayToCSV(mapArray) {
     }
     result = result.trim();
 
+    console.log("create data");
     console.log(result);
 
     updateData(result);

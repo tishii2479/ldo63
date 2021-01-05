@@ -24,15 +24,14 @@ fileInput.addEventListener('change', function () {
 dropZone.addEventListener('drop', function(e) {
     e.stopPropagation();
     e.preventDefault();
-    this.style.background = '#ffffff'; //背景色を白に戻す
-    var files = e.dataTransfer.files; //ドロップしたファイルを取得
+    this.style.background = '#ffffff';
+    let files = e.dataTransfer.files;
     if (files.length > 1) return alert('アップロードできるファイルは1つだけです。');
-    fileInput.files = files; //inputのvalueをドラッグしたファイルに置き換える。
+    fileInput.files = files;
     uploadFile(files[0]);
 }, false);
 
 function uploadFile(file) {
-    /* FileReaderで読み込み、プレビュー画像を表示。 */
     const fr = new FileReader();
     fr.readAsText(file);
     if (fileName != "") {
