@@ -93,7 +93,7 @@ function reloadView() {
         for (let x = 0; x < w; x++) {
             let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
             if (isGoalArea) {
-                result += convertStrToElement("-1");
+                result += convertStrToElement("-1", x, y);
             } else {
                 result += convertStrToElement(csvData[y][x], x, y);
             }

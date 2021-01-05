@@ -85,6 +85,7 @@ main {
 .tile-img {
   /* width: 27px;
   height: 27px; */
+  object-fit: cover;
 }
 
 .tile-tool {
