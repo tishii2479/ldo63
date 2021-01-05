@@ -17,8 +17,8 @@ const tiles = [
     "10_1", "10_2",
     "11"
 ];
-let tileSize = 25;
-const sizes = [20, 25, 30, 35];
+let tileSize = 40;
+const sizes = [30, 35, 40, 45];
 const sizeSmall = document.getElementById("size-small");
 const sizeMiddle = document.getElementById("size-middle");
 const sizeBig = document.getElementById("size-big");
@@ -59,10 +59,17 @@ function updateData(data) {
     reloadView();
 }
 
-function convertStrToElement(str) {
+function convertStrToElement(str, x, y) {
     if (str == undefined || str == "") { return ""; }
-    return `<div class="tile" style="width: ${tileSize + 1}px; height: ${tileSize + 1}px;">
-        <img src="image/tile/${str}.png" class="tile-img" style="width: ${tileSize}px; height: ${tileSize}px;" alt="${str}" />
+    let width = tileSize, height = tileSize;
+    if (x % 2 == 0) {
+        width = tileSize * 0.3;
+    }
+    if (y % 2 == 0) {
+        height = tileSize * 0.3;
+    }
+    return `<div class="tile" style="width: ${width + 1}px; height: ${height + 1}px;">
+        <img src="image/tile/${str}.png" class="tile-img" style="width: ${width}px; height: ${height}px;" alt="${str}" />
     </div>`;
 }
 
@@ -84,7 +91,7 @@ function reloadView() {
     for (let y = 0; y < h; y++) {
         result += `<div class="grid-row">`
         for (let x = 0; x < w; x++) {
-            result += convertStrToElement(csvData[y][x]);
+            result += convertStrToElement(csvData[y][x], x, y);
         }
         result += `</div>`
     }
