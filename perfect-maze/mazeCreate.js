@@ -32,6 +32,11 @@ function createMaze()
         return;
     }
 
+    if (w % 4 != 1) {
+        alert("widthの値は4で割ったあまりが1でないといけません（例: 21, 25, 33など）");
+        return;
+    }
+
     mapArrayWidth = w;
     mapArrayHeight = h;
 
