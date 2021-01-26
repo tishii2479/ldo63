@@ -132,9 +132,9 @@ function reloadView() {
                 // ゴールエリアは編集できない
                 // 鍵付きゴールは例外で設置できる
                 let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
-                if (isGoalArea && tiles[selectedIndex] != "12") {
-                // １列目にギミックを配置できるようになった場合にはこっちにする
-                // if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
+                // １列目にギミックを配置できなくする場合にはこっちにする
+                // if (isGoalArea && tiles[selectedIndex] != "12") { 
+                if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
                     alert("ゴールエリアは編集できません");
                     return;
                 }
