@@ -15,7 +15,9 @@ const tiles = [
     "8_1", "8_2", "8_3", "8_4",
     "9_0", "9_1",
     "10_1", "10_2",
-    "11"
+    "11",
+    "12",
+    "13"
 ];
 let tileSize = 40;
 const sizes = [30, 35, 40, 45];
@@ -29,17 +31,21 @@ setUpSizeButtons();
 const toolbarTiles = document.getElementsByClassName("tile-tool");
 let grids;
 
+let hasLockedGoal = false;
+let hasKey = false;
+
 for (let i = 0; i < toolbarTiles.length; i++) {
     toolbarTiles[i].addEventListener("click", function () {
         selectedTile = tiles[i];
         selectedIndex = i;
         selected.innerHTML = `<p>
-             <b>選択済み: ${tiles[i]}</b>
-             </p>
+            <b>選択済み: ${tiles[i]}</b>
+            </p>
         `;
     });
 }
 
+// 画面右のツールバーを設定する
 function setUpToolbar() {
     let result = "";
     tiles.forEach(tile => {
@@ -54,11 +60,15 @@ function setUpToolbar() {
     tilePalette.innerHTML = result;
 }
 
+// データをアップデートする
+// viewを更新する時に呼ぶ
 function updateData(data) {
     csvData = convertCSVtoArray(data);
     reloadView();
 }
 
+// html要素の作成
+// str = 画像番号, x = x座標, y = y座標
 function convertStrToElement(str, x, y) {
     if (str == undefined || str == "") { return ""; }
     let width = tileSize, height = tileSize;
@@ -73,6 +83,7 @@ function convertStrToElement(str, x, y) {
     </div>`;
 }
 
+// csvファイルから配列に変換する
 function convertCSVtoArray(str) {
     let result = [];
     let tmp = str.split("\n");
@@ -88,11 +99,16 @@ function reloadView() {
     let h = csvData.length;
     let w = csvData[0].length;
     let result = "";
+
+    // 鍵、鍵付きゴールの状態の更新
+    updateKeyConditions();
+
+    // csvData配列からhtml要素を作る
     for (let y = 0; y < h; y++) {
         result += `<div class="grid-row">`
         for (let x = 0; x < w; x++) {
             let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
-            if (isGoalArea) {
+            if (isGoalArea && hasLockedGoal == false) {
                 result += convertStrToElement("-1", x, y);
             } else {
                 result += convertStrToElement(csvData[y][x], x, y);
@@ -102,25 +118,45 @@ function reloadView() {
     }
 
     grid.innerHTML = result;
-
     grids = document.getElementsByClassName("tile");
 
+    // それぞれのタイルにクリックイベントを追加する
     for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
             if (grids[y * w + x] == undefined) { continue; }
             grids[y * w + x].addEventListener("click", function () {
+                // 選択せずに選んだ時に
+                if (selectedTile == undefined) { return; } 
+                
+                // ゴールエリアは鍵付きゴールが設置されている時しか編集できない
+                // 鍵付きゴールは例外で設置できる
+                let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
+                if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
+                    alert("ゴールエリアは編集できません");
+                    return;
+                }
+                // 鍵付きゴールは一列目にのみ配置できる
+                if (tiles[selectedIndex] == "12" && isGoalArea == false) {
+                    alert("鍵付きゴールは１列目にのみ配置できます。");
+                    return;
+                }
+
+                // 奇数ますにはギミックを配置できない
                 if (selectedIndex > 1 && (x % 2 == 0 || y % 2 == 0)) {
                     alert("奇数ますにはギミックを配置できません");
                     return;
                 }
-                let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
-                if (isGoalArea) {
-                    alert("ゴールエリアは編集できません");
+
+                // 鍵、鍵付きゴールは一つしか設置できない
+                if (hasLockedGoal && tiles[selectedIndex] == "12") {
+                    alert("鍵付きゴールはステージに一個しか設置できません");
+                    return;
+                }
+                if (hasKey && tiles[selectedIndex] == "13") {
+                    alert("鍵はステージに一個しか設置できません");
                     return;
                 }
 
-                // 選択せずに選んだ時に
-                if (selectedTile == undefined) { return; } 
                 csvData[y][x] = selectedTile;
                 reloadView();
             });
@@ -128,6 +164,26 @@ function reloadView() {
     }
 }
 
+// 鍵、鍵付きゴールの状態管理
+function updateKeyConditions() {
+    let h = csvData.length;
+    let w = csvData[0].length;
+
+    hasLockedGoal = false;
+    hasKey = false;
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            if (csvData[y][x] == "12") {
+                hasLockedGoal = true;
+            }
+            if (csvData[y][x] == "13") {
+                hasKey = true;
+            }
+        }
+    }
+}
+
+// タイルの大きさを変えるボタンの設定
 function setUpSizeButtons() {
     sizeSmall.addEventListener("click", function () {
         tileSize = sizes[0];
@@ -150,7 +206,7 @@ function setUpSizeButtons() {
     });
 }
 
-// 再起動
+// 再起動した時に確認する
 const onBeforeUnloadHandler = function(e) {
     e.returnValue = 'ステージデータのダウンロードを行いましたか？';
 };

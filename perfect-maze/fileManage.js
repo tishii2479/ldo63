@@ -65,6 +65,11 @@ function downloadFile() {
         alert("data not set");
         return;
     }
+    // 鍵、または鍵付きゴールが片方しかない場合には作成しない
+    if (hasKey != hasLockedGoal) {
+        alert("鍵、鍵付きゴールを作る際には両方を含むステージにする必要があります。");
+        return;
+    }
 
     for (let i = 0; i < csvData.length; i++) {
         data += csvData[i].toString();
