@@ -95,6 +95,7 @@ function convertCSVtoArray(str) {
     return result;
 }
 
+// 迷路データのアップデート
 function reloadView() {
     let h = csvData.length;
     let w = csvData[0].length;
@@ -128,13 +129,16 @@ function reloadView() {
                 // 選択せずに選んだ時に
                 if (selectedTile == undefined) { return; } 
                 
-                // ゴールエリアは鍵付きゴールが設置されている時しか編集できない
+                // ゴールエリアは編集できない
                 // 鍵付きゴールは例外で設置できる
                 let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
-                if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
+                if (isGoalArea && tiles[selectedIndex] != "12") {
+                // １列目にギミックを配置できるようになった場合にはこっちにする
+                // if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
                     alert("ゴールエリアは編集できません");
                     return;
                 }
+                
                 // 鍵付きゴールは一列目にのみ配置できる
                 if (tiles[selectedIndex] == "12" && isGoalArea == false) {
                     alert("鍵付きゴールは１列目にのみ配置できます。");
