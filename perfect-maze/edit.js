@@ -185,6 +185,16 @@ function updateKeyConditions() {
             }
         }
     }
+
+    if (hasLockedGoal == false) {
+        // 鍵付きゴールがなければ、一行目に設置された鍵をなくす
+        for (let x = 0; x < w; x++) {
+            if (csvData[1][x] == "13") {
+                hasKey = false;
+                csvData[1][x] = "0";
+            }
+        }
+    }
 }
 
 // タイルの大きさを変えるボタンの設定
