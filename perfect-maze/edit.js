@@ -135,31 +135,31 @@ function reloadView() {
                 // １列目にギミックを配置できなくする場合にはこっちにする
                 // if (isGoalArea && tiles[selectedIndex] != "12") { 
                 if (isGoalArea && hasLockedGoal == false && tiles[selectedIndex] != "12") {
-                    alert("ゴールエリアは編集できません");
-                    return;
+                    let res = confirm("ゴールエリアは編集できませんが、続けますか？");
+                    if (res == false) { return; }
                 }
                 
                 // 鍵付きゴールは一列目にのみ配置できる
                 if (tiles[selectedIndex] == "12" && isGoalArea == false) {
-                    alert("鍵付きゴールは１列目にのみ配置できます。");
-                    return;
+                    let res = confirm("鍵付きゴールは１列目にのみ配置できますが、続けますか？");
+                    if (res == false) { return; }
                 }
 
                 // 奇数ますにはギミックを配置できない
                 if (selectedIndex > 1 && (x % 2 == 0 || y % 2 == 0)) {
-                    alert("奇数ますにはギミックを配置できません");
-                    return;
+                    let res = confirm("奇数ますにはギミックを配置できませんが、続けますか？");
+                    if (res == false) { return; }
                 }
 
                 // 鍵、鍵付きゴールは一つしか設置できない
-                if (hasLockedGoal && tiles[selectedIndex] == "12") {
-                    alert("鍵付きゴールはステージに一個しか設置できません");
-                    return;
-                }
-                if (hasKey && tiles[selectedIndex] == "13") {
-                    alert("鍵はステージに一個しか設置できません");
-                    return;
-                }
+                // if (hasLockedGoal && tiles[selectedIndex] == "12") {
+                //     alert("鍵付きゴールはステージに一個しか設置できません");
+                //     return;
+                // }
+                // if (hasKey && tiles[selectedIndex] == "13") {
+                //     alert("鍵はステージに一個しか設置できません");
+                //     return;
+                // }
 
                 csvData[y][x] = selectedTile;
                 reloadView();
