@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+#main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+#workspace {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+#toolbar {
+  width: 30%;
+  background-color: aliceblue;
+  overflow-y: scroll;
+}
+
+#drop-zone {
+  border: 1px solid;
+  padding: 10px;
+}
+
+#download-zone {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  padding: 10px;
+}
+
+#tile_palette {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.grid-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.tile {
+  width: 28px;
+  height: 28px;
+  padding: 0.5px;
+}
+
+.tile:hover {
+  background-color: aquamarine;
+}
+
+.tile-img {
+  width: 28px;
+  height: 28px;
+  backface-visibility: initial;
+  -webkit-backface-visibility: hidden;
+}
+
+.tile-tool {
+  width: 60px;
+  height: 70px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-tool:hover {
+  background-color: lightblue;
+}
+
+.tile-tool-img {
+  width: 50px;
+  height: 50px;
+  backface-visibility: initial;
+  -webkit-backface-visibility: hidden;
+}
+
+.tile-tool-text {
+  font-size: 14px;
+}

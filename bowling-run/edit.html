@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta http-equiv="content-type" charset="utf-8">
+    <link rel="stylesheet" href="edit.css">
+</head>
+<body>
+    <main id="main">
+        <div id="workspace">
+            <div id="grid">
+            </div>
+        </div>
+        <div id="toolbar">
+            <div id="drop-zone">
+                <p>アップロード(ドラッグアンドドロップ可)</p>
+                <input type="file" name="file" id="file-input">
+            </div>
+            <div id="download-zone">
+                <p>編集が終わったらここをクリック</p>
+                <button id="download" type="button">ダウンロード</button>
+                <label for="fileName">filename</label>
+                <input id="fileNameInput" name="fileName" type="text" />
+            </div>
+            <div id="tile_palette">
+            </div>
+            <div id="selected">
+            </div>
+        </div>
+    </main>
+</body>
+<script type="text/javascript" src="edit.js"></script>
+<script type="text/javascript" src="filemanage.js"></script>
+</html>

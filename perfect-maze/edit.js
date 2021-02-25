@@ -106,7 +106,7 @@ function reloadView() {
 
     // csvData配列からhtml要素を作る
     for (let y = 0; y < h; y++) {
-        result += `<div class="grid-row">`
+        result += `<div class="grid-row">`;
         for (let x = 0; x < w; x++) {
             let isGoalArea = (y == 1 || y == 2) && (x > 0 && x < w - 1);
             if (isGoalArea && hasLockedGoal == false) {
