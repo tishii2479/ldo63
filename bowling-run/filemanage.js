@@ -60,7 +60,7 @@ function downloadFile() {
     if (fileName == "") {
         fileName = "stage.json"
     }
-    let data = convertStageDataToJSON(stageData);
+    let data = convertStageDataToJSON();
 
     console.log("download data");
     console.log(data);
@@ -82,20 +82,18 @@ function downloadFile() {
 
 download.addEventListener("click", downloadFile, false);
 
-function convertStageDataToJSON(data) {
+function convertStageDataToJSON() {
+    const gimmicksElements = document.getElementsByClassName("gimmick"); 
     let gimmicks = [];
-    for (let y = 0; y < H; y++) {
-        for (let x = 0; x < W; x++) {
-            if (data[y][x] == "0") continue;
-            gimmicks.push(
-                {
-                    id: data[y][x],
-                    x: x - 4,
-                    z: y,
-                    option: ""
-                }
-            );
-        }
+    for (let i = 0; i < gimmicksElements.length; i++) {
+        gimmicks.push(
+            {
+                id: gimmicksElements[i].id,
+                x: Math.round(4 * (gimmicksElements[i].offsetLeft + gimmickSize[gimmicksElements[i].id].width / 2 - 180) / 180),
+                z: gimmicksElements[i].offsetTop + gimmickSize[gimmicksElements[i].id].height / 2,
+                option: ""
+            }
+        );
     }
 
     return JSON.stringify({

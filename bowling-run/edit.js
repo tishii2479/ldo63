@@ -1,12 +1,16 @@
-let stageData;
+let gimmickData;
 let selectedIndex;
 let selectedTile;
+let selectedGimmickIdx = -1;
+let isRemoving = false;
 
 const H = 200;
 const W = 9;
-const grid = document.getElementById("grid");
+const stage = document.getElementById("stage");
 const tilePalette = document.getElementById("tile_palette");
-const selected = document.getElementById("selected");
+const status = document.getElementById("status");
+const create = document.getElementById("create");
+const remove = document.getElementById("remove");
 const tiles = [
     "1",
     "2",
@@ -28,36 +32,196 @@ const tiles = [
     "18",
     "19",
 ];
+const gimmickSize = {
+    "1": {
+        width: 80,
+        height: 60,
+    },
+    "2": {
+        width: 180,
+        height: 120,
+    },
+    "3": {
+        width: 180,
+        height: 60,
+    },
+    "4": {
+        width: 80,
+        height: 60,
+    },
+    "5": {
+        width: 40,
+        height: 30,
+    },
+    "6": {
+        width: 100,
+        height: 80,
+    },
+    "7": {
+        width: 80,
+        height: 60,
+    },
+    "8": {
+        width: 360,
+        height: 40,
+    },
+    "9": {
+        width: 360,
+        height: 40,
+    },
+    "10": {
+        width: 360,
+        height: 40,
+    },
+    "11": {
+        width: 180,
+        height: 120,
+    },
+    "12": {
+        width: 80,
+        height: 60,
+    },
+    "13": {
+        width: 360,
+        height: 120,
+    },
+    "14": {
+        width: 360,
+        height: 120,
+    },
+    "15": {
+        width: 360,
+        height: 60,
+    },
+    "16": {
+        width: 360,
+        height: 40,
+    },
+    "17": {
+        width: 360,
+        height: 40,
+    },
+    "18": {
+        width: 360,
+        height: 40,
+    },
+    "19": {
+        width: 80,
+        height: 60,
+    },
+};
+const gimmickConstraints = {
+    "1": {
+        minX: -7,
+        maxX: 7,
+    },
+    "2": {
+        minX: -7,
+        maxX: 7,
+    },
+    "3": {
+        minX: -7,
+        maxX: 7,
+    },
+    "4": {
+        minX: -7,
+        maxX: 7,
+    },
+    "5": {
+        minX: -7,
+        maxX: 7,
+    },
+    "6": {
+        minX: -7,
+        maxX: 7,
+    },
+    "7": {
+        minX: -7,
+        maxX: 7,
+    },
+    "8": {
+        minX: 0,
+        maxX: 0,
+    },
+    "9": {
+        minX: 0,
+        maxX: 0,
+    },
+    "10": {
+        minX: 0,
+        maxX: 0,
+    },
+    "11": {
+        minX: -7,
+        maxX: 7,
+    },
+    "12": {
+        minX: -7,
+        maxX: 7,
+    },
+    "13": {
+        minX: 0,
+        maxX: 0,
+    },
+    "14": {
+        minX: 0,
+        maxX: 0,
+    },
+    "15": {
+        minX: 0,
+        maxX: 0,
+    },
+    "16": {
+        minX: 0,
+        maxX: 0,
+    },
+    "17": {
+        minX: 0,
+        maxX: 0,
+    },
+    "18": {
+        minX: 0,
+        maxX: 0,
+    },
+    "19": {
+        minX: -7,
+        maxX: 7,
+    },
+}
 
 setUpToolBar();
+setUpStage();
 updateData("");
 
 function updateData(data) {
-    console.log(data);
-    stageData = convertJSONtoArray(data);
+    gimmickData = convertJSONtoArray(data);
     reloadView();
 }
 
-function convertStrToElement(str) {
-    if (str == undefined || str == "") { str = "0"; }
-    return `<div class="tile">
-        <img src="image/tile/${str}.png" class="tile-img" alt="1" />
+function convertGimmickToElement(gimmick) {
+    if (gimmick == undefined) { return; }
+    let top = gimmick.z;
+    let left = gimmick.x;
+    let width = gimmickSize[gimmick.id].width;
+    let height = gimmickSize[gimmick.id].height;
+    return `<div class="gimmick" id="${gimmick.id}" style="top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px">
+        <img src="image/tile/${gimmick.id}.png" class="gimmick-img" alt="${gimmick.id}" />
     </div>`;
 }
 
 function convertJSONtoArray(str) {
-    let result = new Array(H);
-    for (let y = 0; y < H; y++) {
-        result[y] = new Array(W).fill("0");
-    }
-
+    let result = [];
     // ギミックの配置
     if (str != "") {
         const data = JSON.parse(str);
         const gimmicks = data.gimmicks;
 
         for (let i = 0; i < gimmicks.length; i++) {
-            result[gimmicks[i].z][gimmicks[i].x] = gimmicks[i].id;
+            let gimmick = gimmicks[i];
+            gimmick.x = 180 * gimmick.x / 4 + 180;
+            gimmick.x -= gimmickSize[gimmick.id].width / 2,
+            gimmick.z -= gimmickSize[gimmick.id].height / 2,
+            result.push(gimmicks[i]);
         }
     }
     return result;
@@ -66,30 +230,59 @@ function convertJSONtoArray(str) {
 function reloadView() {
     let result = "";
 
-    for (let y = 0; y < H; y++) {
-        result += `<div class="grid-row">`;
-        for (let x = 0; x < W; x++) {
-            result += convertStrToElement(stageData[y][x]);
-        }
-        result += `</div>`;
+    for (let i = 0; i < gimmickData.length; i++) {
+        result += convertGimmickToElement(gimmickData[i]);
     }
 
-    grid.innerHTML = result;
-    const grids = document.getElementsByClassName("tile");
+    stage.innerHTML = result;
+    const gimmicks = document.getElementsByClassName("gimmick");
 
-    // それぞれのタイルにクリックイベントを追加する
-    for (let y = 0; y < H; y++) {
-        for (let x = 0; x < W; x++) {
-            if (grids[y * W + x] == undefined) { continue; }
-            grids[y * W + x].addEventListener("click", function () {
-                // 選択せずに選んだ時に
-                if (selectedTile == undefined) { return; } 
-                
-                stageData[y][x] = selectedTile;
-                reloadView();
-            });
-        }
+    // それぞれのギミックにクリックイベントを追加する
+    for (let i = 0; i < gimmicks.length; i++) {
+        gimmicks[i].addEventListener("click", function () {
+            if (isRemoving == false) { return; }
+            gimmickData.splice(i, 1);
+            reloadView();
+        });
     }
+}
+
+function setUpStage() {
+    stage.addEventListener("click", function (event) {
+        if (selectedTile == "" || selectedTile == undefined) { return; }
+        if (isRemoving) { return; }
+
+        let clickX = event.pageX;
+        let clickY = event.pageY;
+
+        // 要素の位置を取得
+        let clientRect = this.getBoundingClientRect();
+        let positionX = clientRect.left + window.pageXOffset;
+        let positionY = clientRect.top + window.pageYOffset;
+
+        // 要素内におけるクリック位置を計算
+        let x = clickX - positionX;
+        let y = clickY - positionY;
+
+        gimmickData.push({
+            id: selectedTile,
+            x: Math.max(
+                Math.min(
+                    gimmickConstraints[selectedTile].maxX * 20 + 180 - gimmickSize[selectedTile].width / 2,
+                    x - gimmickSize[selectedTile].width / 2
+                ),
+                gimmickConstraints[selectedTile].minX * 20 + 180 - gimmickSize[selectedTile].width / 2
+            ),
+            z: y - gimmickSize[selectedTile].height / 2,
+            option: ""
+        });
+        console.log(
+            gimmickConstraints[selectedTile].maxX * 20 + 180,
+            gimmickConstraints[selectedTile].minX * 20 + 180,
+            x - gimmickSize[selectedTile].width / 2
+        );
+        reloadView();
+    });
 }
 
 function setUpToolBar() {
@@ -104,17 +297,41 @@ function setUpToolBar() {
     });
 
     tilePalette.innerHTML = result;
-
     const toolbarTiles = document.getElementsByClassName("tile-tool");
 
     for (let i = 0; i < toolbarTiles.length; i++) {
         toolbarTiles[i].addEventListener("click", function () {
             selectedTile = tiles[i];
             selectedIndex = i;
-            selected.innerHTML = `<p>
+            isRemoving = false;
+            status.innerHTML = `<p>
                 <b>選択済み: ${tiles[i]}</b>
                 </p>
             `;
         });
     }
 }
+
+function createNew() {
+    if (confirm("前のステージデータはダウンロードしましたか？") == false) {
+        return;
+    }
+    updateData("");
+}
+
+function toggleRemove() {
+    isRemoving = !isRemoving;
+    if (isRemoving) {
+        status.innerHTML = "<b style='color: red;'>削除中</b>";
+    }
+}
+
+create.addEventListener("click", createNew);
+remove.addEventListener("click", toggleRemove);
+
+// 再起動した時に確認する
+const onBeforeUnloadHandler = function (e) {
+    e.returnValue = 'ステージデータのダウンロードを行いましたか？';
+};
+
+window.addEventListener('beforeunload', onBeforeUnloadHandler, false);

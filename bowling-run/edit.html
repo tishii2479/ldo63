@@ -6,10 +6,14 @@
 <body>
     <main id="main">
         <div id="workspace">
-            <div id="grid">
+            <div id="stage">
             </div>
         </div>
         <div id="toolbar">
+            <div id="create-zone">
+                <p>新しく生成する</p>
+                <button id="create" type="button">生成する</button>
+            </div>
             <div id="drop-zone">
                 <p>アップロード(ドラッグアンドドロップ可)</p>
                 <input type="file" name="file" id="file-input">
@@ -22,8 +26,9 @@
             </div>
             <div id="tile_palette">
             </div>
-            <div id="selected">
+            <div id="status">
             </div>
+            <button id="remove" type="button">削除に切り替え</button>
         </div>
     </main>
 </body>
