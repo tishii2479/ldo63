@@ -55,7 +55,7 @@ const gimmickSize = {
     },
     "6": {
         width: 100,
-        height: 80,
+        height: 60,
     },
     "7": {
         width: 80,
@@ -116,24 +116,24 @@ const gimmickConstraints = {
         maxX: 7,
     },
     "2": {
-        minX: -7,
-        maxX: 7,
+        minX: -4,
+        maxX: 4,
     },
     "3": {
-        minX: -7,
-        maxX: 7,
+        minX: -4,
+        maxX: 4,
     },
     "4": {
         minX: -7,
         maxX: 7,
     },
     "5": {
-        minX: -7,
-        maxX: 7,
+        minX: -8,
+        maxX: 8,
     },
     "6": {
-        minX: -7,
-        maxX: 7,
+        minX: -4,
+        maxX: 4,
     },
     "7": {
         minX: -7,
@@ -152,8 +152,8 @@ const gimmickConstraints = {
         maxX: 0,
     },
     "11": {
-        minX: -7,
-        maxX: 7,
+        minX: -4,
+        maxX: 4,
     },
     "12": {
         minX: -7,
@@ -266,21 +266,10 @@ function setUpStage() {
 
         gimmickData.push({
             id: selectedTile,
-            x: Math.max(
-                Math.min(
-                    gimmickConstraints[selectedTile].maxX * 20 + 180 - gimmickSize[selectedTile].width / 2,
-                    x - gimmickSize[selectedTile].width / 2
-                ),
-                gimmickConstraints[selectedTile].minX * 20 + 180 - gimmickSize[selectedTile].width / 2
-            ),
+            x: getConstrainedX(selectedTile, x),
             z: y - gimmickSize[selectedTile].height / 2,
             option: ""
         });
-        console.log(
-            gimmickConstraints[selectedTile].maxX * 20 + 180,
-            gimmickConstraints[selectedTile].minX * 20 + 180,
-            x - gimmickSize[selectedTile].width / 2
-        );
         reloadView();
     });
 }
@@ -324,6 +313,16 @@ function toggleRemove() {
     if (isRemoving) {
         status.innerHTML = "<b style='color: red;'>削除中</b>";
     }
+}
+
+function getConstrainedX(tile, x) {
+    return Math.max(
+        Math.min(
+            gimmickConstraints[tile].maxX * 20 + 180 - gimmickSize[tile].width / 2,
+            x - gimmickSize[tile].width / 2
+        ),
+        gimmickConstraints[tile].minX * 20 + 180 - gimmickSize[tile].width / 2
+    );
 }
 
 create.addEventListener("click", createNew);

@@ -89,7 +89,7 @@ function convertStageDataToJSON() {
         gimmicks.push(
             {
                 id: gimmicksElements[i].id,
-                x: Math.round(4 * (gimmicksElements[i].offsetLeft + gimmickSize[gimmicksElements[i].id].width / 2 - 180) / 180),
+                x: Math.round(4 * (gimmicksElements[i].offsetLeft + gimmickSize[gimmicksElements[i].id].width / 2 - 180) / 180) * 2,
                 z: gimmicksElements[i].offsetTop + gimmickSize[gimmicksElements[i].id].height / 2,
                 option: ""
             }
