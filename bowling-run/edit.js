@@ -54,7 +54,7 @@ const gimmickSize = {
         height: 30,
     },
     "6": {
-        width: 100,
+        width: 200,
         height: 60,
     },
     "7": {
@@ -218,9 +218,9 @@ function convertJSONtoArray(str) {
 
         for (let i = 0; i < gimmicks.length; i++) {
             let gimmick = gimmicks[i];
-            gimmick.x = 180 * gimmick.x / 4 + 180;
-            gimmick.x -= gimmickSize[gimmick.id].width / 2,
-            gimmick.z -= gimmickSize[gimmick.id].height / 2,
+            let x = 180 * gimmick.x / 4 + 180;
+            gimmick.x = getConstrainedX(gimmicks[i].id, x);
+            gimmick.z -= gimmickSize[gimmick.id].height / 2;
             result.push(gimmicks[i]);
         }
     }
@@ -294,7 +294,7 @@ function setUpToolBar() {
             selectedIndex = i;
             isRemoving = false;
             status.innerHTML = `<p>
-                <b>選択済み: ${tiles[i]}</b>
+                <b>選択中: ${tiles[i]}</b>
                 </p>
             `;
         });

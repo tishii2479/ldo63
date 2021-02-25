@@ -86,10 +86,13 @@ function convertStageDataToJSON() {
     const gimmicksElements = document.getElementsByClassName("gimmick"); 
     let gimmicks = [];
     for (let i = 0; i < gimmicksElements.length; i++) {
+        let x = 4 * (gimmicksElements[i].offsetLeft + gimmickSize[gimmicksElements[i].id].width / 2 - 180) / 180;
+        // 小数点以下第二位まで
+        let fx = Math.floor(x * 100) / 100;
         gimmicks.push(
             {
                 id: gimmicksElements[i].id,
-                x: Math.round(4 * (gimmicksElements[i].offsetLeft + gimmickSize[gimmicksElements[i].id].width / 2 - 180) / 180) * 2,
+                x: fx,
                 z: gimmicksElements[i].offsetTop + gimmickSize[gimmicksElements[i].id].height / 2,
                 option: ""
             }

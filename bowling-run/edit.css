@@ -12,7 +12,7 @@
 }
 
 #workspace {
-  width: 70%;
+  width: 60%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -20,9 +20,10 @@
 }
 
 #toolbar {
-  width: 30%;
+  width: 40%;
   background-color: aliceblue;
   overflow-y: scroll;
+  padding: 20px;
 }
 
 #drop-zone {
@@ -57,6 +58,20 @@
   position: relative;
   background-image: url("image/tile/0.png");
   background-size: contain;
+}
+
+#status {
+  text-align: center;
+}
+
+#remove {
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  color: red;
+  outline: none;
+  border: 1px solid black;
+  margin: 10px 0;
 }
 
 .grid-row {
