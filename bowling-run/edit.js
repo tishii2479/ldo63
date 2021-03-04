@@ -263,7 +263,7 @@ function reloadView() {
 
 function setUpRuler() {
     let result = "";
-    for (let i = 0; i <= 20; i++) {
+    for (let i = 0; i < 19; i++) {
         result += `
             <div class="ruler-block">
                 <p>${i * 100}</p>
