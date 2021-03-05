@@ -33,34 +33,35 @@ const tiles = [
     "18",
     "19",
 ];
+// width = 20x, height = 1x
 const gimmickSize = {
     "1": {
         width: 80,
-        height: 60,
+        height: 20,
     },
     "2": {
         width: 180,
-        height: 120,
+        height: 50,
     },
     "3": {
         width: 180,
-        height: 60,
+        height: 20,
     },
     "4": {
         width: 80,
-        height: 60,
+        height: 30,
     },
     "5": {
         width: 40,
-        height: 30,
+        height: 10,
     },
     "6": {
         width: 200,
-        height: 60,
+        height: 30,
     },
     "7": {
         width: 80,
-        height: 60,
+        height: 20,
     },
     "8": {
         width: 360,
@@ -68,31 +69,31 @@ const gimmickSize = {
     },
     "9": {
         width: 360,
-        height: 40,
+        height: 20,
     },
     "10": {
         width: 360,
-        height: 40,
+        height: 20,
     },
     "11": {
         width: 180,
-        height: 120,
+        height: 50,
     },
     "12": {
         width: 80,
-        height: 60,
+        height: 20,
     },
     "13": {
         width: 360,
-        height: 120,
+        height: 50,
     },
     "14": {
         width: 360,
-        height: 120,
+        height: 50,
     },
     "15": {
         width: 360,
-        height: 60,
+        height: 20,
     },
     "16": {
         width: 360,
@@ -100,15 +101,15 @@ const gimmickSize = {
     },
     "17": {
         width: 360,
-        height: 40,
+        height: 20,
     },
     "18": {
         width: 360,
-        height: 40,
+        height: 20,
     },
     "19": {
         width: 80,
-        height: 60,
+        height: 20,
     },
 };
 const gimmickConstraints = {
@@ -207,7 +208,7 @@ function convertGimmickToElement(gimmick) {
     let width = gimmickSize[gimmick.id].width;
     let height = gimmickSize[gimmick.id].height;
     return `<div class="gimmick" id="${gimmick.id}" style="top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px">
-        <img src="image/tile/${gimmick.id}.png" class="gimmick-img" alt="${gimmick.id}" />
+        <img src="image/tile2/${gimmick.id}.png" class="gimmick-img" alt="${gimmick.id}" />
     </div>`;
 }
 
