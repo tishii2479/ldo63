@@ -114,32 +114,32 @@ const gimmickSize = {
 };
 const gimmickConstraints = {
     "1": {
-        minX: -7,
-        maxX: 7,
+        minX: -8,
+        maxX: 8,
     },
     "2": {
-        minX: -4,
-        maxX: 4,
+        minX: -5,
+        maxX: 5,
     },
     "3": {
-        minX: -4,
-        maxX: 4,
+        minX: -5,
+        maxX: 5,
     },
     "4": {
         minX: -7,
         maxX: 7,
     },
     "5": {
-        minX: -8,
-        maxX: 8,
+        minX: -10,
+        maxX: 10,
     },
     "6": {
         minX: -4,
         maxX: 4,
     },
     "7": {
-        minX: -7,
-        maxX: 7,
+        minX: -8,
+        maxX: 8,
     },
     "8": {
         minX: 0,
@@ -154,8 +154,8 @@ const gimmickConstraints = {
         maxX: 0,
     },
     "11": {
-        minX: -4,
-        maxX: 4,
+        minX: -5,
+        maxX: 5,
     },
     "12": {
         minX: -7,
@@ -291,7 +291,8 @@ function setUpStage() {
         // 要素内におけるクリック位置を計算
         let x = clickX - positionX;
         let y = clickY - positionY;
-
+        
+        console.log(getConstrainedX(selectedTile, x));
         gimmickData.push({
             id: selectedTile,
             x: getConstrainedX(selectedTile, x),
