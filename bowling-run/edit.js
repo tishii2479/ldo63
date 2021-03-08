@@ -48,7 +48,7 @@ const gimmickSize = {
         height: 20,
     },
     "4": {
-        width: 80,
+        width: 120,
         height: 30,
     },
     "5": {
