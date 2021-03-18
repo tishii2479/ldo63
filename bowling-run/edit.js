@@ -32,6 +32,8 @@ const tiles = [
     "17",
     "18",
     "19",
+    "20",
+    "21",
 ];
 // width = 20x, height = 1x
 const gimmickSize = {
@@ -111,6 +113,14 @@ const gimmickSize = {
         width: 80,
         height: 20,
     },
+    "20": {
+        width: 360,
+        height: 20,
+    },
+    "21": {
+        width: 360,
+        height: 20,
+    },
 };
 const gimmickConstraints = {
     "1": {
@@ -188,6 +198,14 @@ const gimmickConstraints = {
     "19": {
         minX: -7,
         maxX: 7,
+    },
+    "20": {
+        minX: 0,
+        maxX: 0,
+    },
+    "21": {
+        minX: 0,
+        maxX: 0,
     },
 }
 
